@@ -82,3 +82,17 @@ func TestGetWithdrawalRecords(t *testing.T) {
 		testhelper.UpdateFile(t, goldenFilename, testhelper.ConvertToJSON(res.Result))
 	}
 }
+
+func TestGetCoinInfo(t *testing.T) {
+	client := bybit.NewTestClient().WithAuthFromEnv()
+	coin := bybit.CoinBTC
+	res, err := client.V5().Asset().GetCoinInfo(bybit.V5GetCoinInfoParam{
+		Coin: &coin,
+	})
+	require.NoError(t, err)
+	{
+		goldenFilename := "./testdata/v5-asset-get-coin-info.json"
+		testhelper.Compare(t, goldenFilename, testhelper.ConvertToJSON(res.Result))
+		testhelper.UpdateFile(t, goldenFilename, testhelper.ConvertToJSON(res.Result))
+	}
+}
