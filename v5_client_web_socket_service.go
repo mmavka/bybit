@@ -25,6 +25,7 @@ func (s *V5WebsocketService) Public(category CategoryV5) (V5WebsocketPublicServi
 	return &V5WebsocketPublicService{
 		client:              s.client,
 		connection:          c,
+		category:            category,
 		paramOrderBookMap:   make(map[V5WebsocketPublicOrderBookParamKey]func(V5WebsocketPublicOrderBookResponse) error),
 		paramKlineMap:       make(map[V5WebsocketPublicKlineParamKey]func(V5WebsocketPublicKlineResponse) error),
 		paramTickerMap:      make(map[V5WebsocketPublicTickerParamKey]func(V5WebsocketPublicTickerResponse) error),
@@ -41,11 +42,12 @@ func (s *V5WebsocketService) Private() (V5WebsocketPrivateServiceI, error) {
 		return nil, err
 	}
 	return &V5WebsocketPrivateService{
-		client:           s.client,
-		connection:       c,
-		paramOrderMap:    make(map[V5WebsocketPrivateParamKey]func(V5WebsocketPrivateOrderResponse) error),
-		paramPositionMap: make(map[V5WebsocketPrivateParamKey]func(V5WebsocketPrivatePositionResponse) error),
-		paramWalletMap:   make(map[V5WebsocketPrivateParamKey]func(V5WebsocketPrivateWalletResponse) error),
+		client:            s.client,
+		connection:        c,
+		paramOrderMap:     make(map[V5WebsocketPrivateParamKey]func(V5WebsocketPrivateOrderResponse) error),
+		paramPositionMap:  make(map[V5WebsocketPrivateParamKey]func(V5WebsocketPrivatePositionResponse) error),
+		paramExecutionMap: make(map[V5WebsocketPrivateParamKey]func(V5WebsocketPrivateExecutionResponse) error),
+		paramWalletMap:    make(map[V5WebsocketPrivateParamKey]func(V5WebsocketPrivateWalletResponse) error),
 	}, nil
 }
 

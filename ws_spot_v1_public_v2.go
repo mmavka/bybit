@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"log"
 	"os"
 	"os/signal"
 	"time"
@@ -192,7 +191,7 @@ func (s *SpotWebsocketV1PublicV2Service) Start(ctx context.Context) {
 				if IsErrWebsocketClosed(err) {
 					return
 				}
-				log.Println(err)
+				logger.Printf("spot websocket v1 public v2 service run error: %s", err)
 				return
 			}
 		}
@@ -213,7 +212,7 @@ func (s *SpotWebsocketV1PublicV2Service) Start(ctx context.Context) {
 				return
 			}
 		case <-ctx.Done():
-			log.Println("interrupt")
+			logger.Println("caught spot websocket v1 public v2 service interrupt signal")
 
 			if err := s.Close(); err != nil {
 				return

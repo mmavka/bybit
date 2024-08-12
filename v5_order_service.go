@@ -46,7 +46,14 @@ type V5CreateOrderParam struct {
 	SlTriggerBy           *TriggerBy        `json:"slTriggerBy,omitempty"`
 	ReduceOnly            *bool             `json:"reduce_only,omitempty"`
 	CloseOnTrigger        *bool             `json:"closeOnTrigger,omitempty"`
+	SmpType               *string           `json:"smpType,omitempty"`
 	MarketMakerProtection *bool             `json:"mmp,omitempty"` // option only
+	TpSlMode              *TpSlMode         `json:"tpslMode,omitempty"`
+	TpLimitPrice          *string           `json:"tpLimitPrice,omitempty"`
+	SlLimitPrice          *string           `json:"slLimitPrice,omitempty"`
+	TpOrderType           *OrderType        `json:"tpOrderType,omitempty"`
+	SlOrderType           *OrderType        `json:"slOrderType,omitempty"`
+	MarketUnit            *MarketUnit       `json:"marketUnit,omitempty"` // The unit for qty when create Spot market orders for UTA account.
 }
 
 // V5CreateOrderResponse :

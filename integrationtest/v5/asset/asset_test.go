@@ -10,6 +10,23 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestCreateInternalTransfer(t *testing.T) {
+	client := bybit.NewTestClient().WithAuthFromEnv()
+	res, err := client.V5().Asset().CreateInternalTransfer(bybit.V5CreateInternalTransferParam{
+		TransferID:      "42c0cfb0-6bca-c242-bc76-4e6df6cbcb16",
+		Coin:            bybit.CoinBTC,
+		Amount:          "0.05",
+		FromAccountType: bybit.AccountTypeV5UNIFIED,
+		ToAccountType:   bybit.AccountTypeV5CONTRACT,
+	})
+	require.NoError(t, err)
+	{
+		goldenFilename := "./testdata/v5-asset-create-internal-transfer.json"
+		testhelper.Compare(t, goldenFilename, testhelper.ConvertToJSON(res.Result))
+		testhelper.UpdateFile(t, goldenFilename, testhelper.ConvertToJSON(res.Result))
+	}
+}
+
 func TestGetInternalTransferRecords(t *testing.T) {
 	client := bybit.NewTestClient().WithAuthFromEnv()
 	limit := 1
@@ -92,6 +109,35 @@ func TestGetCoinInfo(t *testing.T) {
 	require.NoError(t, err)
 	{
 		goldenFilename := "./testdata/v5-asset-get-coin-info.json"
+		testhelper.Compare(t, goldenFilename, testhelper.ConvertToJSON(res.Result))
+		testhelper.UpdateFile(t, goldenFilename, testhelper.ConvertToJSON(res.Result))
+	}
+}
+
+func TestGetAllCoinsBalance(t *testing.T) {
+	client := bybit.NewTestClient().WithAuthFromEnv()
+	res, err := client.V5().Asset().GetAllCoinsBalance(bybit.V5GetAllCoinsBalanceParam{
+		AccountType: bybit.AccountTypeUnified,
+		Coins:       []bybit.Coin{bybit.CoinBTC},
+	})
+	require.NoError(t, err)
+	{
+		goldenFilename := "./testdata/v5-asset-get-all-coins-balance.json"
+		testhelper.Compare(t, goldenFilename, testhelper.ConvertToJSON(res.Result))
+		testhelper.UpdateFile(t, goldenFilename, testhelper.ConvertToJSON(res.Result))
+	}
+}
+
+func TestGetMasterDepositAddress(t *testing.T) {
+	client := bybit.NewTestClient().WithAuthFromEnv()
+	chainType := "ETH"
+	res, err := client.V5().Asset().GetMasterDepositAddress(bybit.V5GetMasterDepositAddressParam{
+		Coin:      bybit.CoinUSDT,
+		ChainType: &chainType,
+	})
+	require.NoError(t, err)
+	{
+		goldenFilename := "./testdata/v5-asset-get-master-deposit-address.json"
 		testhelper.Compare(t, goldenFilename, testhelper.ConvertToJSON(res.Result))
 		testhelper.UpdateFile(t, goldenFilename, testhelper.ConvertToJSON(res.Result))
 	}

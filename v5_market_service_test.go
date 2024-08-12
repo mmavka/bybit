@@ -26,13 +26,13 @@ func TestV5MarketGetKline(t *testing.T) {
 			"symbol":   "BTCUSDT",
 			"list": [][]string{
 				{
-					"1659398400000",
-					"21999",
-					"21999",
-					"18000",
-					"19176.24",
-					"240.638551",
-					"240.638551",
+					"1713744000000",
+					"38515.14",
+					"51400",
+					"29496.53",
+					"43890.18",
+					"202399.805532",
+					"8017306629.63402469",
 				},
 			},
 		},
@@ -240,6 +240,8 @@ func TestV5Market_GetInstrumentsInfo(t *testing.T) {
 							"minOrderQty":         "10",
 							"qtyStep":             "10",
 							"postOnlyMaxOrderQty": "3700000",
+							"maxMktOrderQty":      "100.000",
+							"minNotionalValue":    "5",
 						},
 						"unifiedMarginTrade": true,
 						"fundingInterval":    480,
@@ -868,6 +870,7 @@ func TestV5Market_GetRiskLimit(t *testing.T) {
 					"maxLeverage":       "57.14",
 				},
 			},
+			"nextPageCursor": "first%3D10000000AIDOGEUSDT%26last%3DAIOZUSDT",
 		},
 	}
 	bytesBody, err := json.Marshal(respBody)

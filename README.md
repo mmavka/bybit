@@ -4,7 +4,7 @@
 
 # bybit
 
-bybit is an bybit client for the Go programming language.
+bybit is a bybit client for the Go programming language.
 
 ## Usage
 
@@ -159,15 +159,23 @@ The following API endpoints have been implemented
 - [`/v5/account/wallet-balance` Get Wallet Balance](https://bybit-exchange.github.io/docs/v5/account/wallet-balance)
 - [`/v5/account/account-info` Get Account Info](https://bybit-exchange.github.io/docs/v5/account/account-info)
 - [`/v5/account/transaction-log` Get Transaction Log](https://bybit-exchange.github.io/docs/v5/account/transaction-log)
+- [`/v5/account/collateral-info` Get Collateral Info](https://bybit-exchange.github.io/docs/v5/account/collateral-info)
+- [`/v5/account/set-collateral-switch` Set Collateral Coin](https://bybit-exchange.github.io/docs/v5/account/set-collateral)
 
 #### Asset
 
+- [`/v5/asset/transfer/inter-transfer` Create Internal Transfer](https://bybit-exchange.github.io/docs/v5/asset/create-inter-transfer)
 - [`/v5/asset/transfer/query-inter-transfer-list` Get Internal Transfer Records](https://bybit-exchange.github.io/docs/v5/asset/inter-transfer-list)
+- [`/v5/asset/transfer/query-account-coins-balance` Get All Coins Balance](https://bybit-exchange.github.io/docs/v5/asset/all-balance)
 - [`/v5/asset/deposit/query-record` Get Deposit Records](https://bybit-exchange.github.io/docs/v5/asset/deposit-record)
 - [`/v5/asset/deposit/query-sub-member-record` Get Sub Deposit Records](https://bybit-exchange.github.io/docs/v5/asset/sub-deposit-record)
 - [`/v5/asset/deposit/query-internal-record` Get Internal Deposit Records](https://bybit-exchange.github.io/docs/v5/asset/internal-deposit-record)
+- [`/v5/asset/deposit/query-address` Get Master Deposit Address](https://bybit-exchange.github.io/docs/v5/asset/master-deposit-addr)
 - [`/v5/asset/withdraw/query-record` Get Withdrawal Records](https://bybit-exchange.github.io/docs/v5/asset/withdraw-record)
 - [`/v5/asset/coin/query-info` Get Coin Info](https://bybit-exchange.github.io/docs/v5/asset/coin-info)
+- [`/v5/asset/withdraw/create` Withdraw](https://bybit-exchange.github.io/docs/v5/asset/withdraw)
+- [`/v5/asset/transfer/universal-transfer` Create Universal Transfer](https://bybit-exchange.github.io/docs/v5/asset/unitransfer)
+- [`/v5/asset/transfer/query-universal-transfer-list` Get Universal Transfer Records](https://bybit-exchange.github.io/docs/v5/asset/unitransfer-list)
 
 #### User
 
@@ -351,6 +359,7 @@ The following API endpoints have been implemented
 - [Position](https://bybit-exchange.github.io/docs/v5/websocket/private/position)
 - [Order](https://bybit-exchange.github.io/docs/v5/websocket/private/order)
 - [Wallet](https://bybit-exchange.github.io/docs/v5/websocket/private/wallet)
+- [Execution](https://bybit-exchange.github.io/docs/v5/websocket/private/execution)
 
 #### [Spot v1](https://bybit-exchange.github.io/docs/spot/v1/#t-websocket)
 

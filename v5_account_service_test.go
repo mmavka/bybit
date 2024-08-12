@@ -65,7 +65,90 @@ func TestV5Account_GetWalletBalance(t *testing.T) {
 			WithBaseURL(server.URL).
 			WithAuth("test", "test")
 
-		resp, err := client.V5().Account().GetWalletBalance(AccountTypeUnified, nil)
+		resp, err := client.V5().Account().GetWalletBalance(AccountTypeV5UNIFIED, nil)
+		require.NoError(t, err)
+
+		require.NotNil(t, resp)
+		testhelper.Compare(t, respBody["result"], resp.Result)
+	})
+}
+
+func TestV5Account_SetCollateralCoin(t *testing.T) {
+	t.Run("success", func(t *testing.T) {
+		param := V5SetCollateralCoinParam{
+			Coin:             CoinBTC,
+			CollateralSwitch: CollateralSwitchV5On,
+		}
+
+		path := "/v5/account/set-collateral-switch"
+		method := http.MethodPost
+		status := http.StatusOK
+		respBody := map[string]interface{}{
+			"result": map[string]interface{}{},
+		}
+
+		bytesBody, err := json.Marshal(respBody)
+		require.NoError(t, err)
+
+		server, teardown := testhelper.NewServer(
+			testhelper.WithHandlerOption(path, method, status, bytesBody),
+		)
+		defer teardown()
+
+		client := NewTestClient().
+			WithBaseURL(server.URL).
+			WithAuth("test", "test")
+
+		resp, err := client.V5().Account().SetCollateralCoin(param)
+		require.NoError(t, err)
+
+		require.NotNil(t, resp)
+		testhelper.Compare(t, respBody["result"], resp.Result)
+	})
+}
+
+func TestV5Account_GetCollateralInfo(t *testing.T) {
+	t.Run("success", func(t *testing.T) {
+		currency := "BTC"
+		param := V5GetCollateralInfoParam{Currency: &currency}
+
+		path := "/v5/account/collateral-info"
+		method := http.MethodGet
+		status := http.StatusOK
+		respBody := map[string]interface{}{
+			"result": map[string]interface{}{
+				"list": []map[string]interface{}{
+					{
+						"availableToBorrow":   "3",
+						"freeBorrowingAmount": "",
+						"freeBorrowAmount":    "0",
+						"maxBorrowingAmount":  "3",
+						"hourlyBorrowRate":    "0.00000147",
+						"borrowUsageRate":     "0",
+						"collateralSwitch":    true,
+						"borrowAmount":        "0",
+						"borrowable":          true,
+						"currency":            "BTC",
+						"marginCollateral":    true,
+						"freeBorrowingLimit":  "0",
+						"collateralRatio":     "0.95",
+					},
+				},
+			},
+		}
+		bytesBody, err := json.Marshal(respBody)
+		require.NoError(t, err)
+
+		server, teardown := testhelper.NewServer(
+			testhelper.WithHandlerOption(path, method, status, bytesBody),
+		)
+		defer teardown()
+
+		client := NewTestClient().
+			WithBaseURL(server.URL).
+			WithAuth("test", "test")
+
+		resp, err := client.V5().Account().GetCollateralInfo(param)
 		require.NoError(t, err)
 
 		require.NotNil(t, resp)
